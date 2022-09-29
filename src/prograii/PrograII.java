@@ -1,16 +1,32 @@
 
 package prograii;
+import java.util.*;
 
 class Pago{
+    private float monto;
+    private Date fecha;
     
+    public Pago(){
+        
+    }
 }
 class Efectivo extends Pago{
-    int hola;
+     
+    
+    public float calcDevolucion(){
+        float dev = 0;
+        return dev;
+    }
+    
 }
 class Transferencia extends Pago{
+    private String banco;
+    private String numCuenta;
     
 }
 class Tarjeta extends Pago{
+    private String tipo;
+    private String numTransaccion;
     
 }
 
