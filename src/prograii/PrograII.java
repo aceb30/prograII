@@ -65,6 +65,23 @@ class Articulo{
 }
 
 class DetalleOrden{
+    
+    private int cantidad;
+    public float calcPrecio(){
+        return NULL;
+    }
+    
+    public float calcPrecioSinIVA(){
+        return NULL;
+    }
+    
+    public float calcIVA(){
+        return NULL;
+    }
+    
+    public float calcPeso(){
+        return NULL;
+    }
 
 }
 
