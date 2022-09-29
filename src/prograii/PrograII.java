@@ -48,11 +48,22 @@ class Factura extends DocTributario{
 }
 
 class Cliente{
+    public Cliente(String n,String r,String d){
+        nombre = n;
+        rut = r;
+        Direccion dir = new Direccion(d);
+    }
+    
     private String nombre;
     private String rut;
     
+    
 }
 class Direccion{
+    
+    public Direccion(String d){
+        direccion=d;
+    }
     private String direccion;
 }
 
@@ -68,19 +79,19 @@ class DetalleOrden{
     
     private int cantidad;
     public float calcPrecio(){
-        return NULL;
+        return null;
     }
     
     public float calcPrecioSinIVA(){
-        return NULL;
+        return null;
     }
     
     public float calcIVA(){
-        return NULL;
+        return null;
     }
     
     public float calcPeso(){
-        return NULL;
+        return null;
     }
 
 }
@@ -100,6 +111,8 @@ public class PrograII {
 
     public static void main(String[] args) {
        
+        OrdenCompra orden1= new OrdenCompra();
+        Cliente cliente1= new Cliente("Bastian","21.086.950-6","Chiguayante");
     }
     
 }
