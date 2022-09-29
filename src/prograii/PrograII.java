@@ -71,6 +71,10 @@ class DetalleOrden{
 class OrdenCompra{
     private Date fecha;
     private String estado;
+    public OrdenCompra(){
+        fecha = new Date();
+        
+    }
 }
 
 
