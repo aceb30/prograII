@@ -48,10 +48,10 @@ class Factura extends DocTributario{
 }
 
 class Cliente{
-    public Cliente(String n,String r,String d){
-        nombre = n;
-        rut = r;
-        Direccion dir = new Direccion(d);
+    public Cliente(String nombre,String rut,String direccion){
+        this.nombre = nombre;
+        this.rut = rut;
+        Direccion dir = new Direccion(direccion);
     }
     
     private String nombre;
@@ -61,8 +61,8 @@ class Cliente{
 }
 class Direccion{
     
-    public Direccion(String d){
-        direccion=d;
+    public Direccion(String direccion){
+        this.direccion = direccion;
     }
     private String direccion;
 }
