@@ -5,7 +5,7 @@ class Pago{
     
 }
 class Efectivo extends Pago{
-    
+    int hola;
 }
 class Transferencia extends Pago{
     
