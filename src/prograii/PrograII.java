@@ -57,6 +57,10 @@ class Direccion{
 }
 
 class Articulo{
+    private float peso;
+    private String nombre;
+    private String descripcion;
+    private float precio;
     
 }
 
@@ -65,7 +69,8 @@ class DetalleOrden{
 }
 
 class OrdenCompra{
-    
+    private Date fecha;
+    private String estado;
 }
 
 
