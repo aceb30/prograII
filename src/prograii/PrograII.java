@@ -1,8 +1,7 @@
 
 package prograii;
 
-<<<<<<< Updated upstream
-=======
+
 class Pago{
     
 }
@@ -44,7 +43,6 @@ class DetalleOrden{
 class OrdenCompra{
     
 }
->>>>>>> Stashed changes
 
 public class PrograII {
 
