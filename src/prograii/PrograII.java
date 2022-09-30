@@ -133,14 +133,14 @@ class OrdenCompra{
 
 public class PrograII {
 
-    public static void main(String[] args) {       
-        
-        Cliente cliente1= new Cliente(orden1,"Bastian","21.086.950-6","Chiguayante");
+    public static void main(String[] args) {                      
         
         Articulo jugo = new Articulo(1,"Jugo","sabor naranja", 250);
         Articulo fruta = new Articulo(20,"Manzana","fuji", 1500);           
         
         OrdenCompra orden1= new OrdenCompra(5,jugo);
+        
+        Cliente cliente1= new Cliente(orden1,"Bastian","21.086.950-6","Chiguayante");
         
     }
     
