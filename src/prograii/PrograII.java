@@ -48,7 +48,11 @@ class Factura extends DocTributario{
 }
 
 class Cliente{
+    
+    private OrdenCompra orden;//Sin uso todavia 
+    
     public Cliente(String nombre,String rut,String direccion){
+        
         this.nombre = nombre;
         this.rut = rut;
         Direccion dir = new Direccion(direccion);
@@ -86,7 +90,14 @@ class Articulo{
 
 class DetalleOrden{
     
+    private Articulo articulos;
     private int cantidad;
+    
+    public DetalleOrden(int cantidad,Articulo articulos){
+        this.articulos =articulos;
+        this.cantidad = cantidad;
+    }
+    
     public float calcPrecio(){
         return null;
     }
@@ -106,6 +117,7 @@ class DetalleOrden{
 }
 
 class OrdenCompra{
+     
     private Date fecha;
     private String estado;
     public OrdenCompra(){
@@ -121,10 +133,12 @@ public class PrograII {
     public static void main(String[] args) {
        
         OrdenCompra orden1= new OrdenCompra();
-        Cliente cliente1= new Cliente("Bastian","21.086.950-6","Chiguayante");
-        DetalleOrden det1= new DetalleOrden();
+        Cliente cliente1= new Cliente("Bastian","21.086.950-6","Chiguayante");     
         Articulo jugo = new Articulo(1,"Jugo","sabor naranja", 250);
         Articulo fruta = new Articulo(20,"Manzana","fuji", 1500);
+    
+        DetalleOrden det1= new DetalleOrden(5,jugo);
+        
     }
     
 }
