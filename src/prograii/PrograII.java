@@ -117,10 +117,14 @@ class DetalleOrden{
 }
 
 class OrdenCompra{
-     
+    
+    private DetalleOrden detalle;
     private Date fecha;
     private String estado;
-    public OrdenCompra(){
+    
+    public OrdenCompra(int cantidad , Articulo articulos){
+        
+        this.detalle = new DetalleOrden(cantidad, articulos);
         fecha = new Date();
         
     }
@@ -130,14 +134,14 @@ class OrdenCompra{
 
 public class PrograII {
 
-    public static void main(String[] args) {
-       
-        OrdenCompra orden1= new OrdenCompra();
-        Cliente cliente1= new Cliente("Bastian","21.086.950-6","Chiguayante");     
+    public static void main(String[] args) {       
+        
+        Cliente cliente1= new Cliente("Bastian","21.086.950-6","Chiguayante");
+        
         Articulo jugo = new Articulo(1,"Jugo","sabor naranja", 250);
-        Articulo fruta = new Articulo(20,"Manzana","fuji", 1500);
-    
-        DetalleOrden det1= new DetalleOrden(5,jugo);
+        Articulo fruta = new Articulo(20,"Manzana","fuji", 1500);           
+        
+        OrdenCompra orden1= new OrdenCompra(5,jugo);
         
     }
     
