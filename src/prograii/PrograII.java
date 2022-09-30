@@ -68,6 +68,15 @@ class Direccion{
 }
 
 class Articulo{
+    
+    public Articulo(float peso,String nombre,String descripcion,float precio){
+        
+        this.peso = peso;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.precio = precio;    
+    }
+    
     private float peso;
     private String nombre;
     private String descripcion;
@@ -113,6 +122,9 @@ public class PrograII {
        
         OrdenCompra orden1= new OrdenCompra();
         Cliente cliente1= new Cliente("Bastian","21.086.950-6","Chiguayante");
+        DetalleOrden det1= new DetalleOrden();
+        Articulo jugo = new Articulo(1,"Jugo","sabor naranja", 250);
+        Articulo fruta = new Articulo(20,"Manzana","fuji", 1500);
     }
     
 }
