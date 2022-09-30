@@ -6,28 +6,40 @@ import java.util.*;
 
 
 class Pago{
+    
     private float monto;
     private Date fecha;
     
-    public Pago(){
+    public Pago(int monto){
         
+        this.monto = monto;
+        fecha = new Date();
     }
 }
-class Efectivo extends Pago{
-     
+class Efectivo extends Pago{     
     
     public float calcDevolucion(){
         float dev = 0;
         return dev;
-    }
-    
+    }    
 }
+
 class Transferencia extends Pago{
+    
+    public Transferencia(float mon , String banco,String numCuenta){
+        //No se como arreglar esto de super :(
+        //super(float monto);
+        //monto = mon;
+        this.banco = banco;
+        this.numCuenta = numCuenta;
+    }
     private String banco;
     private String numCuenta;
     
 }
+
 class Tarjeta extends Pago{
+    
     private String tipo;
     private String numTransaccion;
     
@@ -35,21 +47,32 @@ class Tarjeta extends Pago{
 
 class DocTributario {
     
-    private String numero;
+    OrdenCompra orden;
+    private String direccion;
     private String rut;
     private Date fecha;
+    
+    public DocTributario(String rut,String Direccion,Date fecha){
+        
+        this.rut = rut;
+        this.direccion = direccion;
+        this.fecha = fecha;        
+    }       
         
 }
+
 class Boleta extends DocTributario{
     
 }
+
 class Factura extends DocTributario{
     
 }
 
 class Cliente{
     
-    private OrdenCompra orden;//Sin uso todavia 
+    private OrdenCompra orden;
+    private DocTributario documento;
     
     public Cliente(OrdenCompra orden,String nombre,String rut,String direccion){
         
@@ -57,13 +80,14 @@ class Cliente{
         this.nombre = nombre;
         this.rut = rut;
         Direccion dir = new Direccion(direccion);
+        documento = new DocTributario(rut, direccion, orden.getFecha());
     }
     
     private String nombre;
     private String rut;
     
-    
 }
+
 class Direccion{
     
     public Direccion(String direccion){
@@ -129,6 +153,10 @@ class OrdenCompra{
         fecha = new Date();
         
     }
+    
+    public Date getFecha(){
+        return this.fecha;
+    }
 }
 
 public class PrograII {
@@ -142,6 +170,7 @@ public class PrograII {
         
         Cliente cliente1= new Cliente(orden1,"Bastian","21.086.950-6","Chiguayante");
         
+        Transferencia t = new Transferencia(100f,"BancoEstado","1312312");
     }
     
 }
