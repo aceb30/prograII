@@ -51,8 +51,9 @@ class Cliente{
     
     private OrdenCompra orden;//Sin uso todavia 
     
-    public Cliente(String nombre,String rut,String direccion){
+    public Cliente(OrdenCompra orden,String nombre,String rut,String direccion){
         
+        this.orden = orden;
         this.nombre = nombre;
         this.rut = rut;
         Direccion dir = new Direccion(direccion);
@@ -130,13 +131,11 @@ class OrdenCompra{
     }
 }
 
-
-
 public class PrograII {
 
     public static void main(String[] args) {       
         
-        Cliente cliente1= new Cliente("Bastian","21.086.950-6","Chiguayante");
+        Cliente cliente1= new Cliente(orden1,"Bastian","21.086.950-6","Chiguayante");
         
         Articulo jugo = new Articulo(1,"Jugo","sabor naranja", 250);
         Articulo fruta = new Articulo(20,"Manzana","fuji", 1500);           
