@@ -8,28 +8,69 @@ import java.util.*;
 class Pago{
     private float monto;
     private Date fecha;
-    
-    public Pago(){
-        
+    private float deuda;
+    public Pago(float mon, Date fec, float deud){
+        monto = mon;
+        fecha = fec;
+        deuda = deud;
+    }
+    public float getMonto(){
+        return monto;
+    }
+    public float getDeuda(){
+        return deuda;
+    }
+    public Date getFecha(){
+        return fecha;
+    }
+    public float pagar(){
+        if(deuda<monto) deuda = 0;
+        if(deuda>=monto) deuda = deuda - monto;
+        return deuda;
     }
 }
 class Efectivo extends Pago{
+     public Efectivo(float monto, Date fecha, float deuda){
+         super(monto, fecha, deuda);
+     }
      
-    
     public float calcDevolucion(){
-        float dev = 0;
+        if(super.getMonto()<=super.getDeuda()) return 0;
+        float dev = super.getMonto()-super.getDeuda();
         return dev;
+    }
+    
+    public float pagar(){
+        return super.pagar();
     }
     
 }
 class Transferencia extends Pago{
     private String banco;
     private String numCuenta;
+    public Transferencia(float monto, Date fecha, float deuda, String banc,
+            String num){
+         super(monto, fecha, deuda);
+         banco = banc;
+         numCuenta = num;
+     }
+    public float pagar(){
+        return super.pagar();
+    }
     
 }
 class Tarjeta extends Pago{
     private String tipo;
     private String numTransaccion;
+    public Tarjeta(float monto, Date fecha, float deuda, String tip, String num){
+         super(monto, fecha, deuda);
+         numTransaccion = num;
+         tipo = tip;
+     }
+    public float pagar(){
+        return super.pagar();
+    }
+    
     
 }
 
@@ -47,15 +88,15 @@ class DocTributario {
         
 }
 class Boleta extends DocTributario{
-    public Boleta(String num, String r, Date fec){
-        super(num, r, fec, dir);
+    public Boleta(String numero, String rut, Date fecha, Direccion direccion){
+        super(numero, rut, fecha, direccion);
     }
     
     
 }
 class Factura extends DocTributario{
-    public Factura(String num, String r, Date fec){
-        super(num, r, fec, dir);
+    public Factura(String numero, String rut, Date fecha, Direccion direccion){
+        super(numero, rut, fecha, direccion);
     }
     
 }
@@ -75,8 +116,8 @@ class Cliente{
     public String getRut(){
         return rut;
     }
-    public String getDireccion(){
-        return direccion.getDireccion();
+    public Direccion getDireccion(){
+        return direccion;
     }
     
     
@@ -225,7 +266,7 @@ class OrdenCompra{
 public class PrograII {
 
     public static void main(String[] args) {
-       
+      
     }
     
 }
