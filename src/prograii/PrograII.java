@@ -167,7 +167,7 @@ class DetalleOrden{
     }
     public float calcPrecio(){
         float precio = 0;
-        for(int i=0; i<cantidad-1; ++i){
+        for(int i=0; i<cantidad; ++i){
              precio = precio + lista.get(i).getPrecio();
         }
         deuda = precio;
@@ -257,20 +257,25 @@ class OrdenCompra{
 public class PrograII {
 
     public static void main(String[] args) {
-        
-        Cliente cliente1= new Cliente("Bastian","21.086.950-6","Chiguayante");
-        
+                
         Articulo manzana = new Articulo(1.f,"Manzana","Roja",1000.f);
         Articulo cafe = new Articulo(1.f,"Cafe","Descafeinado",0.5f);
         Articulo jugo = new Articulo(0.5f,"Jugo","Naranja",1700.f);
         Articulo bebida = new Articulo(1.5f,"Bebida","Sprite",2000.f);
+        Articulo pan = new Articulo(1.f,"Pan","Marraqueta",1300.f);
+        Articulo arroz = new Articulo(2.f,"Arroz","Linea 2",2200.f);
         
         OrdenCompra orden1 = new OrdenCompra();
+        orden1.infCliente("Bastian","21.086.950-6","Chiguayante");
+        OrdenCompra orden2 = new OrdenCompra();
+        orden2.infCliente("Cliente","21.282.686-3","Chillan");
         
         orden1.add(bebida);
-        orden1.add(cafe);
+        orden1.add(manzana);
+        orden1.add(arroz);
         
         System.out.println(orden1.calcPrecio());
+        System.out.println(orden1.calcPrecioSinIVA());
         
         
     }    
