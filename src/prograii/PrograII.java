@@ -262,5 +262,9 @@ public class PrograII {
         
         Articulo manzana = new Articulo(1.f,"Manzana","Roja",1000.f);
         Articulo cafe = new Articulo(1.f,"Cafe","Descafeinado",0.5f);
+        
+        OrdenCompra orden1 = new OrdenCompra();
+        
+        orden1.add(manzana);
     }    
 }
