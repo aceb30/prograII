@@ -1,11 +1,9 @@
-
 package prograii;
-
 
 import java.util.*;
 
-
 class Pago{
+
     private float monto;
     private Date fecha;
     private float deuda;
@@ -29,22 +27,28 @@ class Pago{
         return deuda;
     }
 }
+
 class Efectivo extends Pago{
      public Efectivo(float monto, Date fecha, float deuda){
          super(monto, fecha, deuda);
      }
-     
+
     public float calcDevolucion(){
         if(super.getMonto()<=super.getDeuda()) return 0;
         float dev = super.getMonto()-super.getDeuda();
         return dev;
     }
-    
+
     public float pagar(){
         return super.pagar();
+
     }
-    
+
+
+    }
+
 }
+
 class Transferencia extends Pago{
     private String banco;
     private String numCuenta;
@@ -56,9 +60,14 @@ class Transferencia extends Pago{
      }
     public float pagar(){
         return super.pagar();
+
     }
-    
+
+
+    }
+
 }
+
 class Tarjeta extends Pago{
     private String tipo;
     private String numTransaccion;
@@ -69,9 +78,13 @@ class Tarjeta extends Pago{
      }
     public float pagar(){
         return super.pagar();
+
     }
-    
-    
+
+
+
+    }
+
 }
 
 class DocTributario {
@@ -84,21 +97,27 @@ class DocTributario {
         rut = r;
         fecha = fec;
         direccion = dir;
+
     }
-        
+
+
+    }
+
 }
+
 class Boleta extends DocTributario{
     public Boleta(String numero, String rut, Date fecha, Direccion direccion){
         super(numero, rut, fecha, direccion);
     }
-    
-    
+
+
 }
+
 class Factura extends DocTributario{
     public Factura(String numero, String rut, Date fecha, Direccion direccion){
         super(numero, rut, fecha, direccion);
     }
-    
+
 }
 
 class Cliente{
@@ -119,9 +138,10 @@ class Cliente{
     public Direccion getDireccion(){
         return direccion;
     }
-    
-    
+
+
 }
+
 class Direccion{
     private String direccion;
     public Direccion(String dir){
@@ -133,6 +153,7 @@ class Direccion{
 }
 
 class Articulo{
+
     private float peso;
     private String nombre;
     private String descripcion;
@@ -155,7 +176,7 @@ class Articulo{
     public float getPrecio(){
         return precio;
     }
-    
+
 }
 
 class DetalleOrden{
@@ -178,7 +199,7 @@ class DetalleOrden{
         deuda = precio;
         return precio;
     }
-    
+
     public float calcIVA(){
         float precio = calcPrecio();
         float IVA = (float) ((precio * 0.19)/1.19);
@@ -190,7 +211,7 @@ class DetalleOrden{
         float siniva = (float) ((precio - IVA));
         return siniva;
     }
-    
+
     public float calcPeso(){
         float peso = 0;
         for(int i=0; i<cantidad-1; ++i){
@@ -198,14 +219,14 @@ class DetalleOrden{
         }
         return peso;
     }
-
 }
 
 class OrdenCompra{
+
     private Date fecha;
     private String estado;
     private ArrayList<String> estados;
-    private DetalleOrden detalle;
+    private DetalleOrden detalle = new DetalleOrden();
     private Cliente cliente;
     public OrdenCompra(){
         fecha = new Date();
@@ -216,57 +237,95 @@ class OrdenCompra{
         estados.add("Pago realizado, compra exitosa");
         estado = estados.get(0);
     }
-    
+
     public void add(Articulo art){
         estado = estados.get(0);
         detalle.addArticulo(art);
     }
-    
+
     public float calcPrecioSinIVA(){
         return detalle.calcPrecioSinIVA();
     }
-    
+
     public float calcIVA(){
         return detalle.calcIVA();
     }
-    
+
     public float calcPrecio(){
         return detalle.calcPrecio();
     }
-    
+
     public float calcPeso(){
         return detalle.calcPeso();
     }
-    
+
     public void infCliente(String nombre, String rut, String direccion){
         estado = estados.get(1);
         cliente = new Cliente(nombre, rut, direccion);
     }
-    
+
     int numPago = 0;
-    
+
     public Boleta crearBoleta(){
         String num = String.valueOf(numPago);
         Boleta boleta = new Boleta(num, cliente.getNombre(), fecha,
         cliente.getDireccion());
         return boleta;
     }
-   
+
     public Factura crearFactura(){
         Factura factura = new Factura(String.valueOf(numPago), cliente.getNombre(), fecha
         ,cliente.getDireccion());
         return factura;
     }
-    
-    
+
+
 }
-
-
 
 public class PrograII {
 
     public static void main(String[] args) {
-      
+
+        Articulo manzana = new Articulo(1.f,"Manzana","Roja",1000.f);
+        Articulo cafe = new Articulo(1.f,"Cafe","Descafeinado",0.5f);
+        Articulo jugo = new Articulo(0.5f,"Jugo","Naranja",1700.f);
+        Articulo bebida = new Articulo(1.5f,"Bebida","Sprite",2000.f);
+        Articulo pan = new Articulo(1.f,"Pan","Marraqueta",1300.f);
+        Articulo arroz = new Articulo(2.f,"Arroz","Linea 2",2200.f);
+
+        OrdenCompra orden1 = new OrdenCompra();
+        orden1.infCliente("Bastian","21.086.950-6","Chiguayante");
+        OrdenCompra orden2 = new OrdenCompra();
+        orden2.infCliente("Bastian","21.282.686-3","Chillan");
+        OrdenCompra orden3 = new OrdenCompra();
+        orden2.infCliente("Alex","21.282.686-3","Chillan");
+
+        orden1.add(bebida);
+        orden1.add(manzana);
+        orden1.add(arroz);
+
+        orden1.add(bebida);
+        orden1.add(jugo);
+        orden1.add(pan);
+
+        orden3.add(bebida);
+        orden3.add(manzana);
+        orden3.add(arroz);
+        orden3.add(pan);
+        orden3.add(jugo);
+        orden3.add(cafe);
+
+        orden1.crearBoleta();
+        orden2.crearFactura();
+
+        orden2.crearFactura();
+
+        orden3.crearBoleta();
+        orden3.crearBoleta();
+
+        System.out.println(orden1.calcPrecio());
+        System.out.println("Orden1 Sin iva " + orden1.calcPrecioSinIVA());
+
+
     }
-    
 }
