@@ -200,10 +200,10 @@ class OrdenCompra{
     private Date fecha;
     private String estado;
     private ArrayList<String> estados;
-    private DetalleOrden detalle;
+    private DetalleOrden detalle = new DetalleOrden();
     private Cliente cliente;
     public OrdenCompra(){
-        fecha = new Date();
+        fecha = new Date();        
         estados = new ArrayList<String>();
         estados.add("Creando/editando pedido");
         estados.add("Pedido creado, obteniendo información del cliente");
@@ -262,9 +262,16 @@ public class PrograII {
         
         Articulo manzana = new Articulo(1.f,"Manzana","Roja",1000.f);
         Articulo cafe = new Articulo(1.f,"Cafe","Descafeinado",0.5f);
+        Articulo jugo = new Articulo(0.5f,"Jugo","Naranja",1700.f);
+        Articulo bebida = new Articulo(1.5f,"Bebida","Sprite",2000.f);
         
         OrdenCompra orden1 = new OrdenCompra();
         
-        orden1.add(manzana);
+        orden1.add(bebida);
+        orden1.add(cafe);
+        
+        System.out.println(orden1.calcPrecio());
+        
+        
     }    
 }
