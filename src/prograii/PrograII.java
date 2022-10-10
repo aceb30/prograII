@@ -268,14 +268,29 @@ public class PrograII {
         OrdenCompra orden1 = new OrdenCompra();
         orden1.infCliente("Bastian","21.086.950-6","Chiguayante");
         OrdenCompra orden2 = new OrdenCompra();
-        orden2.infCliente("Cliente","21.282.686-3","Chillan");
-        
+        orden2.infCliente("Bastian","21.282.686-3","Chillan");
+        OrdenCompra orden3 = new OrdenCompra();
+        orden2.infCliente("Alex","21.282.686-3","Chillan");
+                       
         orden1.add(bebida);
         orden1.add(manzana);
         orden1.add(arroz);
         
+        orden1.add(bebida);
+        orden1.add(jugo);
+        orden1.add(pan);
+        
+        orden3.add(bebida);
+        orden3.add(manzana);
+        orden3.add(arroz);
+        orden3.add(pan);
+        orden3.add(jugo);
+        orden3.add(cafe);      
+        
+        orden1.crearBoleta();
+        
         System.out.println(orden1.calcPrecio());
-        System.out.println(orden1.calcPrecioSinIVA());
+        System.out.println("Orden1 Sin iva " + orden1.calcPrecioSinIVA());
         
         
     }    
