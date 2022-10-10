@@ -283,11 +283,17 @@ public class PrograII {
         orden3.add(bebida);
         orden3.add(manzana);
         orden3.add(arroz);
-        orden3.add(pan);
+        orden3.add(pan); 
         orden3.add(jugo);
         orden3.add(cafe);      
         
         orden1.crearBoleta();
+        orden2.crearFactura();
+        
+        orden2.crearFactura();
+        
+        orden3.crearBoleta();
+        orden3.crearBoleta();       
         
         System.out.println(orden1.calcPrecio());
         System.out.println("Orden1 Sin iva " + orden1.calcPrecioSinIVA());
