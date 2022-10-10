@@ -1,176 +1,266 @@
-
 package prograii;
 
-
 import java.util.*;
-
 
 class Pago{
     
     private float monto;
     private Date fecha;
-    
-    public Pago(int monto){
-        
-        this.monto = monto;
-        fecha = new Date();
+    private float deuda;
+    public Pago(float mon, Date fec, float deud){
+        monto = mon;
+        fecha = fec;
+        deuda = deud;
+    }
+    public float getMonto(){
+        return monto;
+    }
+    public float getDeuda(){
+        return deuda;
+    }
+    public Date getFecha(){
+        return fecha;
+    }
+    public float pagar(){
+        if(deuda<monto) deuda = 0;
+        if(deuda>=monto) deuda = deuda - monto;
+        return deuda;
     }
 }
-class Efectivo extends Pago{     
-    
+
+class Efectivo extends Pago{
+     public Efectivo(float monto, Date fecha, float deuda){
+         super(monto, fecha, deuda);
+     }
+     
     public float calcDevolucion(){
-        float dev = 0;
+        if(super.getMonto()<=super.getDeuda()) return 0;
+        float dev = super.getMonto()-super.getDeuda();
         return dev;
+    }
+    
+    public float pagar(){
+        return super.pagar();
     }    
 }
 
 class Transferencia extends Pago{
-    
-    public Transferencia(float mon , String banco,String numCuenta){
-        //No se como arreglar esto de super :(
-        //super(float monto);
-        //monto = mon;
-        this.banco = banco;
-        this.numCuenta = numCuenta;
-    }
     private String banco;
     private String numCuenta;
-    
+    public Transferencia(float monto, Date fecha, float deuda, String banc,
+            String num){
+         super(monto, fecha, deuda);
+         banco = banc;
+         numCuenta = num;
+     }
+    public float pagar(){
+        return super.pagar();
+    }    
 }
 
 class Tarjeta extends Pago{
-    
     private String tipo;
     private String numTransaccion;
-    
+    public Tarjeta(float monto, Date fecha, float deuda, String tip, String num){
+         super(monto, fecha, deuda);
+         numTransaccion = num;
+         tipo = tip;
+     }
+    public float pagar(){
+        return super.pagar();
+    }        
 }
 
 class DocTributario {
-    
-    OrdenCompra orden;
-    private String direccion;
+    private String numero;
     private String rut;
     private Date fecha;
-    
-    public DocTributario(String rut,String Direccion,Date fecha){
-        
-        this.rut = rut;
-        this.direccion = direccion;
-        this.fecha = fecha;        
-    }       
-        
+    private Direccion direccion;
+    public DocTributario(String num, String r, Date fec, Direccion dir){
+        numero = num;
+        rut = r;
+        fecha = fec;
+        direccion = dir;
+    }        
 }
 
 class Boleta extends DocTributario{
-    
+    public Boleta(String numero, String rut, Date fecha, Direccion direccion){
+        super(numero, rut, fecha, direccion);
+    }    
 }
 
 class Factura extends DocTributario{
-    
+    public Factura(String numero, String rut, Date fecha, Direccion direccion){
+        super(numero, rut, fecha, direccion);
+    }    
 }
 
 class Cliente{
-    
-    private OrdenCompra orden;
-    private DocTributario documento;
-    
-    public Cliente(OrdenCompra orden,String nombre,String rut,String direccion){
-        
-        this.orden = orden;
-        this.nombre = nombre;
-        this.rut = rut;
-        Direccion dir = new Direccion(direccion);
-        documento = new DocTributario(rut, direccion, orden.getFecha());
-    }
-    
     private String nombre;
     private String rut;
-    
+    private Direccion direccion;
+    public Cliente(String nom, String r, String dir){
+        nombre = nom;
+        rut = r;
+        direccion = new Direccion(dir);
+    }
+    public String getNombre(){
+        return nombre;
+    }
+    public String getRut(){
+        return rut;
+    }
+    public Direccion getDireccion(){
+        return direccion;
+    }        
 }
 
 class Direccion{
-    
-    public Direccion(String direccion){
-        this.direccion = direccion;
-    }
     private String direccion;
+    public Direccion(String dir){
+        direccion = dir;
+    }
+    public String getDireccion(){
+        return direccion;
+    }
 }
 
 class Articulo{
-    
-    public Articulo(float peso,String nombre,String descripcion,float precio){
-        
-        this.peso = peso;
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.precio = precio;    
-    }
     
     private float peso;
     private String nombre;
     private String descripcion;
     private float precio;
-    
+    public Articulo(float pes, String nombr, String descr, float prec){
+       peso = pes;
+       nombre = nombr;
+       descripcion = descr;
+       precio = prec;
+    }
+    public float getPeso(){
+        return peso;
+    }
+    public String getNombre(){
+        return nombre;
+    }
+    public String getDescripcion(){
+        return descripcion;
+    }
+    public float getPrecio(){
+        return precio;
+    }   
 }
 
 class DetalleOrden{
     
-    private Articulo articulos;
+    private float deuda;
+    private ArrayList<Articulo> lista;
     private int cantidad;
-    
-    public DetalleOrden(int cantidad,Articulo articulos){
-        this.articulos =articulos;
-        this.cantidad = cantidad;
+    public DetalleOrden(){
+        cantidad = 0;
+        lista = new ArrayList<Articulo>();
     }
-    
+    public void addArticulo(Articulo art){
+        lista.add(art);
+        cantidad = lista.size();
+    }
     public float calcPrecio(){
-        return null;
-    }
-    
-    public float calcPrecioSinIVA(){
-        return null;
+        float precio = 0;
+        for(int i=0; i<cantidad-1; ++i){
+             precio = precio + lista.get(i).getPrecio();
+        }
+        deuda = precio;
+        return precio;
     }
     
     public float calcIVA(){
-        return null;
+        float precio = calcPrecio();
+        float IVA = (float) ((precio * 0.19)/1.19);
+        return IVA;
+    }
+    public float calcPrecioSinIVA(){
+        float precio = calcPrecio();
+        float IVA = calcIVA();
+        float siniva = (float) ((precio - IVA));
+        return siniva;
     }
     
     public float calcPeso(){
-        return null;
+        float peso = 0;
+        for(int i=0; i<cantidad-1; ++i){
+             peso = peso + lista.get(i).getPeso();
+        }
+        return peso;
     }
-
 }
 
 class OrdenCompra{
     
-    private DetalleOrden detalle;
     private Date fecha;
     private String estado;
-    
-    public OrdenCompra(int cantidad , Articulo articulos){
-        
-        this.detalle = new DetalleOrden(cantidad, articulos);
+    private ArrayList<String> estados;
+    private DetalleOrden detalle;
+    private Cliente cliente;
+    public OrdenCompra(){
         fecha = new Date();
-        
+        estados = new ArrayList<String>();
+        estados.add("Creando/editando pedido");
+        estados.add("Pedido creado, obteniendo información del cliente");
+        estados.add("Esperando pago");
+        estados.add("Pago realizado, compra exitosa");
+        estado = estados.get(0);
     }
     
-    public Date getFecha(){
-        return this.fecha;
+    public void add(Articulo art){
+        estado = estados.get(0);
+        detalle.addArticulo(art);
     }
+    
+    public float calcPrecioSinIVA(){
+        return detalle.calcPrecioSinIVA();
+    }
+    
+    public float calcIVA(){
+        return detalle.calcIVA();
+    }
+    
+    public float calcPrecio(){
+        return detalle.calcPrecio();
+    }
+    
+    public float calcPeso(){
+        return detalle.calcPeso();
+    }
+    
+    public void infCliente(String nombre, String rut, String direccion){
+        estado = estados.get(1);
+        cliente = new Cliente(nombre, rut, direccion);
+    }
+    
+    int numPago = 0;
+    
+    public Boleta crearBoleta(){
+        String num = String.valueOf(numPago);
+        Boleta boleta = new Boleta(num, cliente.getNombre(), fecha,
+        cliente.getDireccion());
+        return boleta;
+    }
+   
+    public Factura crearFactura(){
+        Factura factura = new Factura(String.valueOf(numPago), cliente.getNombre(), fecha
+        ,cliente.getDireccion());
+        return factura;
+    }    
 }
 
 public class PrograII {
 
-    public static void main(String[] args) {                      
+    public static void main(String[] args) {
         
-        Articulo jugo = new Articulo(1,"Jugo","sabor naranja", 250);
-        Articulo fruta = new Articulo(20,"Manzana","fuji", 1500);           
+        Cliente cliente1= new Cliente("Bastian","21.086.950-6","Chiguayante");
         
-        OrdenCompra orden1= new OrdenCompra(5,jugo);
-        
-        Cliente cliente1= new Cliente(orden1,"Bastian","21.086.950-6","Chiguayante");
-        
-        Transferencia t = new Transferencia(100f,"BancoEstado","1312312");
-    }
-    
+        Articulo manzana = new Articulo(1.f,"Manzana","Roja",1000.f);
+        Articulo cafe = new Articulo(1.f,"Cafe","Descafeinado",0.5f);
+    }    
 }
